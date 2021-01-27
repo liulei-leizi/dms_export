@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tazh.tazhinterface.mapper.RpdUThinLineMeasureMapper">
+    <!--查询未添加字段后（乌尔禾1线，2线）的数据，并计算-->
+    <select id="getMeasureDataByTimeAddCol" resultType="com.tazh.tazhinterface.pojo.RPD_U_THIN_LINE_MERSURE_T" parameterType="java.lang.String">
+        SELECT ACQUISITION_TIME,FT_HH_102,FT_AVE2,AT_AVE2,OL_HH_102*YMD_XYFX2 as OL_HH_102,FT_HH_101,FT_AVE1,AT_AVE1,OL_HH_1021*YMD_XYFX+OL_HH_1022*YMD_XYFX as OL_HH_101,FT_HH_103,FT_AVE3,AT_AVE3,OL_HH_1021*YMD_XYFX as OL_HH_1021,FT_HH_104,FT_AVE4,AT_AVE4,OL_HH_1022*YMD_XYFX as OL_HH_1022 FROM PC_RPD_U_THIN_LINE_MERSURE_T where acquisition_time between TO_DATE(#{arg0},'YYYY-MM-DD HH24:MI:SS') and TO_DATE(#{arg1},'YYYY-MM-DD HH24:MI:SS') order by acquisition_time ASC
+    </select>
+    <!--查询未添加字段前（乌尔禾1线，2线）的数据，并计算-->
+    <select id="getMeasureDataByTime" resultType="com.tazh.tazhinterface.pojo.RPD_U_THIN_LINE_MERSURE_T" parameterType="java.lang.String">
+        select ACQUISITION_TIME,FT_HH_102,FT_AVE2,AT_AVE2,OL_HH_102*YMD_XYFX2 as OL_HH_102,FT_HH_101,FT_AVE1,AT_AVE1,OL_HH_101*YMD_XYFX as OL_HH_101 from PC_RPD_U_THIN_LINE_MERSURE_T WHERE ACQUISITION_TIME between TO_DATE(#{arg0},'YYYY-MM-DD?HH24:MI:SS') and TO_DATE(#{arg1},'YYYY-MM-DD?HH24:MI:SS') order by ACQUISITION_TIME ASC
+    </select>
+    <!--查询出所有的，不需要计算-->
+    <select id="getMeasureDataAllByTime" resultType="com.tazh.tazhinterface.pojo.RPD_U_THIN_LINE_MERSURE_T" parameterType="java.lang.String">
+        SELECT * FROM PC_RPD_U_THIN_LINE_MERSURE_T where acquisition_time between TO_DATE(#{arg0},'YYYY-MM-DD HH24:MI:SS') and TO_DATE(#{arg1},'YYYY-MM-DD HH24:MI:SS') order by acquisition_time ASC
+    </select>
+</mapper>

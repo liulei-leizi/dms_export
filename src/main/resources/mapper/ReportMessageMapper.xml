@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tazh.tazhinterface.mapper.ReportMessageMapper">
+    <!--查询未添加字段后（乌尔禾1线，2线）的数据，并计算-->
+    <select id="getReportMessageTByParam" resultType="com.tazh.tazhinterface.pojo.PcRpdReportMessageT" parameterType="java.util.Map">
+        SELECT * FROM pc_rpd_report_message_t r WHERE 1 = 1
+        <if test="id != null and id != ''">
+            AND id = #{id}
+        </if>
+        <if test="bbmc != null and bbmc != ''">
+            AND bbmc = #{bbmc}
+        </if>
+        <if test="rq != null and rq != ''">
+            AND rq = to_date(#{rq},'YYYY-MM-DD HH24:MI:SS')
+        </if>
+    </select>
+</mapper>
